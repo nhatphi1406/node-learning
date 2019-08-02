@@ -6,6 +6,7 @@ import compression from 'compression'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { errorHandler } from "bodymen"
+
 export default (apiRoot, router) => {
     const app = new express()
     const logger = (req, res, next) => {

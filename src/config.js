@@ -37,7 +37,7 @@ const config = {
         mysql: {
             database: process.env.DATABASE || 'db-demo',
             username: process.env.USERNAME || 'root',
-            passowrd: process.env.DBPASSWORD || null
+            password: process.env.DBPASSWORD || null
         }
     }
 }

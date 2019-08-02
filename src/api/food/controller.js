@@ -1,10 +1,12 @@
 import db from './../../services/sequelize'
 
-const User = db.User
+const Food = db.Food
 
-export const createUser = (req, res, next) => {
+export const createFood = (req, res, next) => {
     const body = req.body
-    User.create(body).then((data) => {
+    // console.log(body)
+    Food.create(body).then((data) => {
+        // console.log(data)
        res.send(data)
     }).catch( err=> {
         res.status(404).send(err)
