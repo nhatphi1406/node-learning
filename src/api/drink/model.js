@@ -2,7 +2,7 @@
 // import {Sequelize} from 'sequelize'
 
 module.exports = (sequelize, Datatypes) => {
-    var Food = sequelize.define('Food', {
+    var drink = sequelize.define('drink', {
       id: {
             type: Datatypes.INTEGER,
             primaryKey: true,
@@ -34,5 +34,5 @@ module.exports = (sequelize, Datatypes) => {
         allowNull: false 
       }
     })
-    return Food
+    return drink
   }

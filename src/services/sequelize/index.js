@@ -11,10 +11,10 @@ const sequelize = new Sequelize(mysql.database, mysql.username, mysql.password, 
 });
 
 var userModel = sequelize['import']('../../api/user/model');
-var foodModel = sequelize['import']('../../api/food/model')
+var drinkModel = sequelize['import']('../../api/drink/model')
 const db = {
     User: userModel,
-    Food: foodModel
+    Drink: drinkModel
 }
 
 db.sequelize = sequelize;
