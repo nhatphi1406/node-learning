@@ -2,7 +2,7 @@
 // import {Sequelize} from 'sequelize'
 
 module.exports = (sequelize, Datatypes) => {
-    var drink = sequelize.define('drink', {
+    var Drink = sequelize.define('drink', {
       id: {
             type: Datatypes.INTEGER,
             primaryKey: true,
@@ -28,11 +28,18 @@ module.exports = (sequelize, Datatypes) => {
       },
       detail: {
         type: Datatypes.STRING,
-      },
-      categories: {
-        type: Datatypes.STRING,
-        allowNull: false 
       }
     })
-    return drink
+
+    Drink.associate = function(models) {
+      models.Drink.belongsTo(models.Category, {
+        foreignKey: 'categoryId',
+        // targetKey: 'categoryId',
+        as: 'category'
+        
+      })
+    }
+    
+
+    return Drink
   }

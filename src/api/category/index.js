@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { createDrink, getAllDrink, getDrink } from './controller'
+import { createCategory } from './controller'
 const router = new Router()
-router.get('/', getAllDrink)
-router.get('/:id',getDrink )
-router.post('/', createDrink);
+router.get('/',(req, res) => res.send('PUT USER'))
+router.get('/:id', (req, res) => res.send('PUT USER'))
+router.post('/', createCategory);
 router.put('/', (req, res) => res.send('PUT USER'))
 router.delete('/', (req, res) => res.send('DELTE USER'))
 
