@@ -7,11 +7,11 @@ module.exports = (sequelize, Datatypes) => {
         autoIncrement: true
       },
       customerName: {
-        type: Datatypes.STRING,
-        allowNull: false
+        type: Datatypes.STRING
+        // allowNull: false
       },
       tableStatus: {
-        type: Datatypes.STRING,
+        type: Datatypes.INTEGER,
         allowNull: false
       }
     })

@@ -17,9 +17,14 @@ export const createDrink = (req, res, next) => {
 
 export const getAllDrink = (req, res, next) => {
     Drink.findAll(
-        // {
-        //     include: [Category]
-        // }
+        {
+            include: [
+                {
+                    model: Category,
+                    as: "category"
+                }
+            ]
+        }
     ).then(data => {
         res.status(200).json(data)
     }).catch(err => {

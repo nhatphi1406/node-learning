@@ -1,10 +1,10 @@
 import { Router } from 'express'
-
+import {createBill, getAllBill, getBill, updateBill} from './controller'
 const router = new Router()
-router.get('/',(req, res) => res.send('PUT USER'))
-router.get('/:id', (req, res) => res.send('PUT USER'))
-router.post('/',  (req, res) => res.send('PUT USER'));
-router.put('/', (req, res) => res.send('PUT USER'))
+router.get('/', getAllBill)
+router.get('/:id', getBill)
+router.post('/', createBill);
+router.put('/', updateBill)
 router.delete('/', (req, res) => res.send('DELTE USER'))
 
 export default router   

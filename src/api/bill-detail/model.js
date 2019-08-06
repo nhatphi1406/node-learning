@@ -1,5 +1,10 @@
-module.exports = ( sequelize, Datatypes ) => {
+module.exports = (sequelize, Datatypes) => {
     var BillDetail = sequelize.define('BillDetail', {
+        billDetailId: {
+            type: Datatypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         billId: {
             type: Datatypes.INTEGER,
             allowNull: false
@@ -11,8 +16,20 @@ module.exports = ( sequelize, Datatypes ) => {
         drinkQuantity: {
             type: Datatypes.INTEGER,
             allowNull: false
+        },
+        drinkPrice: {
+            type: Datatypes.INTEGER,
         }
     })
-    
+
+    BillDetail.associate = function (models) {
+        models.BillDetail.belongsTo(models.Bill, {
+            foreignKey: 'billId',
+            // targetKey: 'categoryId',
+            as: 'bill'
+
+        })
+    }
+
     return BillDetail
 }

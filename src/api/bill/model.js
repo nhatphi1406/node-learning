@@ -11,12 +11,21 @@ module.exports = (sequelize, Datatypes) => {
         },
         userId: {
             type: Datatypes.INTEGER,
-            allowNull: false
         },
         customerNote: {
             type: Datatypes.STRING,
+        },
+        billStatus: {
+            type: Datatypes.INTEGER,
+            allowNull: false
         }
     })
+    Bill.associate = function (models) {
+        models.Category.hasMany(models.BillDetail, {
+            foreignKey: 'billId',
+            // targetKey: 'categoryId'
+        })
+    }
 
     return Bill
 }

@@ -17,11 +17,12 @@ module.exports = (sequelize, Datatypes) => {
       }
     })
 
-    // Category.associate = function(models) {
-    //   models.Category.hasMany(models.Drink, {
-
-    //   })
-    // }
+    Category.associate = function(models) {
+      models.Category.hasMany(models.Drink, {
+        foreignKey: 'categoryId',
+        // targetKey: 'categoryId'
+      })
+    }
 
     return Category
   }
