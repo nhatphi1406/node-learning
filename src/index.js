@@ -1,4 +1,4 @@
-import express from '../src/services/express'
+import express from './services/express'
 import { port, ip , env, apiRoot} from './config';
 import router from './api/index'
 import db from './services/sequelize'

@@ -59,12 +59,13 @@ export const getAllBill = (req, res, next) => {
 export const getBill = (req, res, next) => {
     const billId = req.params.id
     Bill.findOne({
-        where: { billId: billId },
+        where: { billId: billId }
         // include: [{
-        //     model: Category,
-        //     as: "category"
-        // }]
-    }).then(data => {
+        //     model: Drink,
+        //     as: "drink"
+        // }],
+    })
+    .then(data => {
         res.status(200).json(data)
     }).catch(err => {
         res.status(404).json(err)

@@ -26,6 +26,11 @@ module.exports = (sequelize, Datatypes) => {
             // targetKey: 'categoryId'
         })
     }
-
+    Bill.associate = function (models) {
+        models.Category.belongsTo(models.Table, {
+            foreignKey: 'tableId',
+            // targetKey: 'categoryId'
+        })
+    }
     return Bill
 }

@@ -1,6 +1,10 @@
 import db from './../../services/sequelize'
+import { inspect } from 'util'
 
 const Table = db.Table
+const Bill = db.Bill
+const BillDetail = db.BillDetail
+const Drink = db.Drink
 
 export const createTable = (req, res, next) => {
     const body = req.body
@@ -16,14 +20,16 @@ export const createTable = (req, res, next) => {
 
 export const getAllTable = (req, res, next) => {
     Table.findAll(
-        // {
-        //     include: [
-        //         {
-        //             model: Category,
-        //             as: "category"
-        //         }
-        //     ]
-        // }
+        {
+            include: [
+                {
+                    model: Bill,
+                    limit: 1,
+                    as: 'bill',
+                    order: [['createdAt', 'DESC']]
+                }
+            ]
+        }
     ).then(data => {
         res.status(200).json(data)
     }).catch(err => {
@@ -35,13 +41,45 @@ export const getTable = (req, res, next) => {
     const tableId = req.params.id
     Table.findOne({
         where: { tableId: tableId },
-        // include: [{
-        //     model: Category,
-        //     as: "category"
-        // }]
+        include: [
+            {
+                model: Bill,
+                as: 'bill',
+                limit: 1,
+                order: [['createdAt', 'DESC']],
+                required: false,
+            }
+        ],
+
     }).then(data => {
+        let table = data.toJSON()
         res.status(200).json(data)
-    }).catch(err => {
+    })
+    // .then(table => {
+    //     // if (!table.bill[0].billId) {
+    //     //     res.status(200).json(table)
+    //     // }
+    //     // else {
+    //     //     const billId = table.bill[0].billId
+    //     //     BillDetail.findAll({
+    //     //         where: { billId: billId },
+    //     //         include: [{
+    //     //             model: Drink,
+    //     //             as: "drink"
+    //     //         }],
+    //     //     }).then(item => {
+    //     //         let billDetail = {
+    //     //             billDetail: item
+    //     //         }
+    //     //         let tableDetail = Object.assign({}, table, billDetail)
+    //     //         res.status(200).json(tableDetail)
+    //     //     }).catch(err => {
+    //     //         res.status(404).json("err")
+    //     //     })
+    //     // }
+        
+    // })
+    .catch(err => {
         res.status(404).json(err)
     })
 }

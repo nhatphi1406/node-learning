@@ -1,8 +1,9 @@
 import { Router } from 'express'
+import { getBillDetail, getAllBillDetail } from './controller'
 
 const router = new Router()
-router.get('/',(req, res) => res.send('PUT USER'))
-router.get('/:id', (req, res) => res.send('PUT USER'))
+router.get('/', getAllBillDetail)
+router.get('/:id', getBillDetail)
 router.post('/',  (req, res) => res.send('PUT USER'));
 router.put('/', (req, res) => res.send('PUT USER'))
 router.delete('/', (req, res) => res.send('DELTE USER'))

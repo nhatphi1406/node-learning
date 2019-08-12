@@ -9,10 +9,6 @@ module.exports = (sequelize, Datatypes) => {
             type: Datatypes.INTEGER,
             allowNull: false
         },
-        drinkId: {
-            type: Datatypes.INTEGER,
-            allowNull: false
-        },
         drinkQuantity: {
             type: Datatypes.INTEGER,
             allowNull: false
@@ -28,6 +24,13 @@ module.exports = (sequelize, Datatypes) => {
             // targetKey: 'categoryId',
             as: 'bill'
 
+        })
+    }
+
+    BillDetail.associate = function (models) {
+        models.BillDetail.belongsTo(models.Drink, {
+            foreignKey: 'drinkId',
+            as: "drink"
         })
     }
 

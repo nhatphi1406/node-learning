@@ -35,7 +35,7 @@ export const getAllDrink = (req, res, next) => {
 export const getDrink = (req, res, next) => {
     const drinkId = req.params.id
     Drink.findOne({
-        where: { id:drinkId },
+        where: { drinkId:drinkId },
         include: [{
             model: Category,
             as: "category"
