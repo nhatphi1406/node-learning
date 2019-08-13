@@ -1,36 +1,15 @@
-module.exports = (sequelize, Datatypes) => {
-    var Bill = sequelize.define('Bill', {
-        billId: {
-            type: Datatypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        tableId: {
-            type: Datatypes.INTEGER,
-            allowNull: false
-        },
-        userId: {
-            type: Datatypes.INTEGER,
-        },
-        customerNote: {
-            type: Datatypes.STRING,
-        },
-        billStatus: {
-            type: Datatypes.INTEGER,
-            allowNull: false
-        }
-    })
-    Bill.associate = function (models) {
-        models.Category.hasMany(models.BillDetail, {
-            foreignKey: 'billId',
-            // targetKey: 'categoryId'
-        })
-    }
-    Bill.associate = function (models) {
-        models.Category.belongsTo(models.Table, {
-            foreignKey: 'tableId',
-            // targetKey: 'categoryId'
-        })
-    }
-    return Bill
-}
+import mongoose from 'mongoose'
+var Schema = mongoose.Schema;
+var billSchema = new Schema({
+    table: {
+        type: Schema.Types.ObjectId,
+        ref: 'Table'
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    note: String
+})
+var Bill = mongoose.model('Bill', billSchema);
+module.exports = { Bill }

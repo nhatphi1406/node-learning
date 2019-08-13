@@ -1,16 +1,17 @@
-import db from './../../services/sequelize'
-
-const Category = db.Category
-const Drink = db.Drink
+import {Category} from './model'
 
 export const createCategory = (req, res, next) => {
-    const body = req.body
-    Category.create(body).then((data) => {
-        res.send(data)
-    }).catch(err => {
-        res.status(404).send(err)
+    var newCategory = new Category(req.body)
+    // console.log(body)
+    newCategory.save().then(item => {
+        res.status(200).send(item)
+    })
+    .catch(err=> {
+        console.log(err)
     })
 }
+
+
 export const getCategory = (req, res, next) => {
     const categoryId = req.params.id
     Category.findOne(

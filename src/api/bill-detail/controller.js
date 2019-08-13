@@ -1,8 +1,3 @@
-import db from './../../services/sequelize'
-
-const BillDetail = db.BillDetail
-const Drink = db.Drink
-
 export const createBillDetail = (req, res, next) => {
     const body = req.body
     BillDetail.create(body).then((data) => {

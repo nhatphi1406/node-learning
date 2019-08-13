@@ -1,6 +1,4 @@
-import db from './../../services/sequelize'
-
-const User = db.User
+// const User = db.User
 
 export const createUser = (req, res, next) => {
     const body = req.body

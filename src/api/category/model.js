@@ -1,28 +1,12 @@
-
-module.exports = (sequelize, Datatypes) => {
-    var Category = sequelize.define('Category', {
-      categoryId: {
-        type: Datatypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      categoryName: {
-        type: Datatypes.STRING,
-        allowNull: false,
-        unique: true
-      },
-      categoryStatus: {
-        type: Datatypes.STRING,
-        allowNull: false
-      }
-    })
-
-    Category.associate = function(models) {
-      models.Category.hasMany(models.Drink, {
-        foreignKey: 'categoryId',
-        // targetKey: 'categoryId'
-      })
-    }
-
-    return Category
-  }
+import mongoose from 'mongoose'
+var Schema = mongoose.Schema;
+var categorySchema = new Schema({
+    name: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    pictures: [String],
+})
+var Category = mongoose.model('Category', categorySchema);
+module.exports = { Category }

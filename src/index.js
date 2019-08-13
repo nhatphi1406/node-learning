@@ -1,15 +1,13 @@
 import express from './services/express'
-import { port, ip , env, apiRoot} from './config';
+import { port, ip, env, apiRoot } from './config';
 import router from './api/index'
-import db from './services/sequelize'
+// import db from './services/sequelize'
 const app = express(apiRoot, router)
 
 
+//Ép Mongoose sử dụng thư viện promise toàn cục
+//Lấy kết nối mặc định
 
-db.sequelize.sync().then(()=> {
-    console.log('init db')
-}).catch(err => {
-    console.log(err)
-})
+//Ràng buộc kết nối với sự kiện lỗi (để lấy ra thông báo khi có lỗi)
 
 app.listen(port, () => console.log(`Server listening on http://%s:%d, in %s mode`, ip, port, env))

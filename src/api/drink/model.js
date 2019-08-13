@@ -1,52 +1,20 @@
+import mongoose from 'mongoose'
+import {Category} from '../category/model'
 
-// import {Sequelize} from 'sequelize'
-
-module.exports = (sequelize, Datatypes) => {
-  var Drink = sequelize.define('drink', {
-    drinkId: {
-      type: Datatypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+var Schema = mongoose.Schema;
+var drinkSchema = new Schema({
+    name: {
+        type: String,
+        unique: true,
+        required: true
     },
-    drinkName: {
-      type: Datatypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    drinkPrice: {
-      type: Datatypes.INTEGER,
-      allowNull: false
-    },
-    drinkPictures: {
-      type: Datatypes.STRING,
-      get() {
-        const pictures = this.getDataValue('drinkPictures');
-        return pictures ? pictures.split(';') : "";
-      },
-      set(val) {
-        this.setDataValue('drinkPictures', val.join(';'));
-      },
-    },
-    drinkDetail: {
-      type: Datatypes.STRING,
+    pictures: [String],
+    status: Boolean,
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
     }
-  })
 
-  Drink.associate = function (models) {
-    models.Drink.belongsTo(models.Category, {
-      foreignKey: 'categoryId',
-      // targetKey: 'categoryId',
-      as: 'category'
-
-    })
-  }
-
-  Drink.associate = function (models) {
-    models.Drink.hasMany(models.BillDetail, {
-      foreignKey: 'drinkId',
-      as: "drink"
-    })
-  }
-
-  return Drink
-}
+})
+var Drink = mongoose.model('Drink', drinkSchema);
+module.exports = { Drink }

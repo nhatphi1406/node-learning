@@ -1,10 +1,4 @@
-import db from './../../services/sequelize'
-import { inspect } from 'util'
 
-const Table = db.Table
-const Bill = db.Bill
-const BillDetail = db.BillDetail
-const Drink = db.Drink
 
 export const createTable = (req, res, next) => {
     const body = req.body

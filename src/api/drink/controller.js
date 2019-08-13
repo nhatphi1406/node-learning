@@ -1,48 +1,54 @@
-import db from './../../services/sequelize'
-
-const Drink = db.Drink
-const Category = db.Category
+import { Drink } from './model'
 
 export const createDrink = (req, res, next) => {
-    const body = req.body
+    var newDrink = new Drink(req.body)
     // console.log(body)
-    Drink.create(body).then((data) => {
-        // console.log(data)
-        res.send(data)
-    }).catch(err => {
-        res.status(404).send(err)
+    newDrink.save().then(item => {
+        res.status(200).send(item)
     })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 
 export const getAllDrink = (req, res, next) => {
-    Drink.findAll(
-        {
-            include: [
-                {
-                    model: Category,
-                    as: "category"
-                }
-            ]
-        }
-    ).then(data => {
-        res.status(200).json(data)
-    }).catch(err => {
-        res.status(404).json(err)
-    })
+    Drink.find({ status: true })
+        .populate('category')
+        .exec(function (err, item) {
+            if (err) return handleError(err);
+            res.status(200).send(item)
+            // in ra "The author is Bob Smith"
+        });
 }
 
 export const getDrink = (req, res, next) => {
     const drinkId = req.params.id
-    Drink.findOne({
-        where: { drinkId:drinkId },
-        include: [{
-            model: Category,
-            as: "category"
-        }]
-    }).then(data => {
-        res.status(200).json(data)
-    }).catch(err => {
-        res.status(404).json(err)
-    })
+    Drink.find({ id: drinkId })
+        .populate('category')
+        .exec(function (err, item) {
+            if (err) return handleError(err);
+            res.status(200).send(item)
+            // in ra "The author is Bob Smith"
+        });
+}
+
+export const updateDrink = (req, res, next) => {
+    const drinkId = req.params.id
+    const drink = req.body
+    Drink.findByIdAndUpdate(drinkId, {
+        name: drink.name,
+        status: drink.status,
+        pictures: drink.pictures,
+        category: drink.cateogry
+
+    },
+        function (err, item) {
+            if (err) {
+                res.status(404).send(err)
+            }
+            else {
+                res.status(200).send(item)
+            }
+        })
 }
